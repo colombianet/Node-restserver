@@ -30,7 +30,7 @@ app.get('/usuario', verificaToken, function(req, res) {
                     usuarios,
                     total
                 });
-            })
+            });
         });
 });
 
@@ -55,12 +55,14 @@ app.post('/usuario', [verificaToken, verificaAdminRole], function(req, res) {
         res.json({
             ok: true,
             usuario: usuarioDB
-        })
+        });
     });
 
 });
 
 app.put('/usuario/:id', [verificaToken, verificaAdminRole], function(req, res) {
+    // uso librería underscore(_) q expande funcionalidades a JS, usando método pick el cual regresa una copia
+    // del objeto devolviendo los campos que deseo que el usuario vea
     let body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado']);
     let id = req.params.id;
 
