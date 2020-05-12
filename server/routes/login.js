@@ -113,6 +113,7 @@ app.post('/google', async(req, res) => {
             usuario.email = googleUser.email;
             usuario.img = googleUser.img;
             usuario.password = ':)';
+            usuario.google = true;
 
             usuario.save((err, usuarioDB) => {
                 if (err) {
