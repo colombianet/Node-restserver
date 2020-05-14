@@ -1,16 +1,16 @@
 const express = require('express');
-const app = express();
 const bcrypt = require('bcrypt');
-const { verificaToken, verificaAdminRole } = require('../middlewares/autenticacion');
 const _ = require('underscore');
-
 const Usuario = require('../models/usuario');
+const { verificaToken, verificaAdminRole } = require('../middlewares/autenticacion');
 
-app.get('/usuario', verificaToken, function(req, res) {
-    let limite = req.query.limite;
+const app = express();
+
+app.get('/usuario', verificaToken, (req, res) => {
+    let limite = req.query.limite || 0;
     limite = Number(limite);
 
-    let desde = req.query.desde;
+    let desde = req.query.desde || 5;
     desde = Number(desde);
 
     Usuario.find({ estado: true }, 'nombre email role img google estado')
